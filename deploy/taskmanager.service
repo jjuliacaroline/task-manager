@@ -1,0 +1,16 @@
+[Unit]
+Description=Task Manager Django service
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/task-manager
+Environment="PATH=/opt/task-manager/.venv/bin"
+ExecStart=/opt/task-manager/.venv/bin/gunicorn task_manager.wsgi:application --bind 127.0.0.1:8000 --workers 2
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
