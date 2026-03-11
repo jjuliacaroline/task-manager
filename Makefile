@@ -3,7 +3,7 @@ PIP := .venv/bin/pip
 MANAGE := $(PYTHON) manage.py
 PORT ?= 8080
 
-.PHONY: setup install test check run ci-local health
+.PHONY: setup install test check run ci-local health logs
 
 setup:
 	python3 -m venv .venv
@@ -27,3 +27,6 @@ ci-local:
 
 health:
 	curl -i http://127.0.0.1:$(PORT)/healthz/
+
+logs:
+	journalctl -u taskmanager -f

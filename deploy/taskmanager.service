@@ -8,7 +8,11 @@ User=www-data
 Group=www-data
 WorkingDirectory=/opt/task-manager
 Environment="PATH=/opt/task-manager/.venv/bin"
-ExecStart=/opt/task-manager/.venv/bin/gunicorn task_manager.wsgi:application --bind 127.0.0.1:8000 --workers 2
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/opt/task-manager/.venv/bin/gunicorn task_manager.wsgi:application --bind 127.0.0.1:8000 --workers 2 --access-logfile - --error-logfile -
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=taskmanager
 Restart=always
 RestartSec=5
 
